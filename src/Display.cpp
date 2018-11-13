@@ -64,6 +64,6 @@ bool UDisplay::IsClosed()
 void UDisplay::ClearColor(float Red, float Green, float Blue, float Alpha)
 {
     glClearColor(Red, Green, Blue, Alpha);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     return;
 }
