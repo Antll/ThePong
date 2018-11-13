@@ -17,11 +17,15 @@ public:
     void Update();
     bool IsClosed();
     void ClearColor(float Red, float Green, float Blue, float Alpha);
+    float GetPixelWidth() const;
+    float GetPixelHeight() const;
     
 private:
     SDL_Window *Window;
     SDL_GLContext GLContext;
     bool IsWindowClosed;
+    float PixelWidth;
+    float PixelHeight;
 };
 
 #endif // DISPLAY_H
