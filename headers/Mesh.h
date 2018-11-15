@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <GL/glew.h>
 #include "Display.h"
+#include "ErrorHandling.h"
 
 #define OUT
 
@@ -23,21 +24,21 @@ private:
 class UMesh
 {
 public:
-    UMesh(float X, float Y, float Z, float Width, float Height, UDisplay* Display);
-    ~UMesh();
+    void ConvertCoordinates(float X, float Y, float Z, float Width, float Height, UDisplay* Display);
+    void BindBuffers(UVertex* VertexBufferData);
+    void Delete();
     void Draw();
+    virtual void SetVertices() = 0;
+    virtual void SetPosition(glm::vec3 Position) = 0;
     
-private:
+protected:
     glm::vec3 Position;
     float Width;
     float Height;
     GLuint VertexArrayObject;
     GLuint VertexArrayBuffer;
-    static const int VERTICES_COUNT = 3;
-    UVertex VertexBufferData[VERTICES_COUNT];
-    
-    void SetVertices();
-    void SetPosition(glm::vec3 Position);
+    int VerticesCount;
+    UVertex* VertexBufferData;
 };
 
 #endif // MESH_H

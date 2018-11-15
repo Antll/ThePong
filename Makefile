@@ -10,7 +10,7 @@ INCLUDES = -I$(INCLUDE_DIR)
 
 CXX = g++
 LIBS = -lGL -lSDL2 -lGLEW
-CFLAGS = -Wall
+CFLAGS = -g -Wall
 NAME = ThePong
 EXE = $(BIN_DIR)/$(NAME)
 
