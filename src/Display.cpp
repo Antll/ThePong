@@ -13,6 +13,8 @@ UDisplay::UDisplay(int Width, int Height, const char* Title)
     Window = SDL_CreateWindow(Title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Width, Height, SDL_WINDOW_OPENGL);
     GLContext = SDL_GL_CreateContext(Window);
     IsWindowClosed = false;
+    PixelWidth = 2.0f / Width;
+    PixelHeight = 2.0f / Height;
     
     GLenum Status = glewInit();
     if (Status == GLEW_OK)
@@ -67,3 +69,8 @@ void UDisplay::ClearColor(float Red, float Green, float Blue, float Alpha)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     return;
 }
+
+
+float UDisplay::GetPixelWidth() const { return PixelWidth; }
+float UDisplay::GetPixelHeight() const { return PixelHeight; }
+
