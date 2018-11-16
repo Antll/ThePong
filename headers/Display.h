@@ -8,6 +8,9 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
+#include <string>
+
+#define EMPTY_KEY_SYMBOL ""
 
 class UDisplay
 {
@@ -19,6 +22,8 @@ public:
     void ClearColor(float Red, float Green, float Blue, float Alpha);
     float GetPixelWidth() const;
     float GetPixelHeight() const;
+    std::string GetUnhandledKeyPress() const;
+    void KeyPressBeenHandled();
     
 private:
     SDL_Window *Window;
@@ -26,6 +31,7 @@ private:
     bool IsWindowClosed;
     float PixelWidth;
     float PixelHeight;
+    std::string UnhandledKeyPress;
 };
 
 #endif // DISPLAY_H

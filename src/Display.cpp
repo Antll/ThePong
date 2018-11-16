@@ -51,6 +51,13 @@ void UDisplay::Update()
         {
             IsWindowClosed = true;
         }
+        else
+        {
+            if (Event.type == SDL_KEYDOWN)
+            {
+                this->UnhandledKeyPress = Event.key.keysym.sym;
+            }
+        }
     }
     
     return;
@@ -71,6 +78,14 @@ void UDisplay::ClearColor(float Red, float Green, float Blue, float Alpha)
 }
 
 
+void UDisplay::KeyPressBeenHandled()
+{
+    UnhandledKeyPress = "";
+}
+
+
 float UDisplay::GetPixelWidth() const { return PixelWidth; }
 float UDisplay::GetPixelHeight() const { return PixelHeight; }
+std::string UDisplay::GetUnhandledKeyPress() const { return UnhandledKeyPress; }
+
 
