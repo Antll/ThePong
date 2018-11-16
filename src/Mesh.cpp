@@ -61,13 +61,33 @@ void UMesh::Delete()
 }
 
 
-void UMesh::ConvertCoordinates(float X, float Y, float Z, float Width, float Height, UDisplay* Display)
+void UMesh::ConvertCoordinates(float& X, float& Y, float& Z, float& Width, float& Height, const UDisplay* Display)
 {
     float PixelHeight = Display->GetPixelHeight();
     float PixelWidth = Display->GetPixelWidth();
     
-    this->Position = glm::vec3(X * PixelWidth, Y * PixelHeight, Z);
-    this->Width = Width * PixelWidth;
-    this->Height = Height * PixelHeight;
+    X *= PixelWidth;
+    Y *= PixelHeight;
+    Z = 0;
+    
+    Width *= PixelWidth;
+    Height *= PixelHeight; 
     return;
+}
+
+
+glm::vec3 UMesh::GetMiddlePoint()
+{
+    // Find the the middle point
+    float SumX = 0.0f;
+    float SumY = 0.0f;
+    float SumZ = 0.0f;
+    for (int i = 0; i < VerticesCount; i++)
+    {
+        SumX += VertexBufferData[i].GetPosition().x;
+        SumY += VertexBufferData[i].GetPosition().y;
+        SumZ += VertexBufferData[i].GetPosition().z;
+    }
+    
+    return glm::vec3(SumX / VerticesCount, SumY / VerticesCount, SumZ / VerticesCount);
 }

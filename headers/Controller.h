@@ -7,7 +7,7 @@
 class UController: public UMesh
 {
 public:
-    UController(float X, float Y, float Z, float Width, float Height, UDisplay* Display);
+    UController(float X, float Y, float Z, float Width, float Height, const UDisplay* Display);
     ~UController();
     void SetVertices();
     void SetPosition(glm::vec3 Position);

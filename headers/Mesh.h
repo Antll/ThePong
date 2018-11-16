@@ -24,10 +24,11 @@ private:
 class UMesh
 {
 public:
-    void ConvertCoordinates(float X, float Y, float Z, float Width, float Height, UDisplay* Display);
+    void ConvertCoordinates(float& X, float& Y, float& Z, float& Width, float& Height, const UDisplay* Display);
     void BindBuffers(UVertex* VertexBufferData);
     void Delete();
     void Draw();
+    glm::vec3 GetMiddlePoint();
     virtual void SetVertices() = 0;
     virtual void SetPosition(glm::vec3 Position) = 0;
     
