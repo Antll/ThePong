@@ -25,7 +25,7 @@ class UMesh
 {
 public:
     void ConvertCoordinates(float& X, float& Y, float& Z, float& Width, float& Height, const UDisplay* Display);
-    void BindBuffers(UVertex* VertexBufferData);
+    void GenerateBuffers();
     void Delete();
     void Draw();
     glm::vec3 GetMiddlePoint();

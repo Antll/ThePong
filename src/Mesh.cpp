@@ -29,26 +29,26 @@ void UVertex::SetPosition(glm::vec3 NewPosition)
 void UMesh::Draw()
 {
     glBindVertexArray(VertexArrayObject);
+    glBindBuffer(GL_ARRAY_BUFFER, VertexArrayBuffer);
+    
+    glBufferData(GL_ARRAY_BUFFER, VerticesCount * sizeof(VertexBufferData[0]), VertexBufferData, GL_STREAM_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    
     glEnableVertexAttribArray(0);
+    
     glDrawArrays(GL_TRIANGLES, 0, VerticesCount);
+    
     glDisableVertexAttribArray(0);
     glBindVertexArray(0);
     return;
 }
 
 
-void UMesh::BindBuffers(UVertex* VertexBufferData)
+void UMesh::GenerateBuffers()
 {
     glGenVertexArrays(1, OUT &VertexArrayObject);
     glBindVertexArray(VertexArrayObject);
-    
     glGenBuffers(1, &VertexArrayBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, VertexArrayBuffer);
-    glBufferData(GL_ARRAY_BUFFER, VerticesCount * sizeof(VertexBufferData[0]), VertexBufferData, GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-    
     glBindVertexArray(0);
     return;
 }
