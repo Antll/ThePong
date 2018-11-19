@@ -1,5 +1,12 @@
 #include "Display.h"
 
+UDisplay::UDisplay()
+{
+    std::cerr << "Window was created in unproper way!" << std::endl;
+    return;
+}
+
+
 UDisplay::UDisplay(int Width, int Height, const char* Title)
 {
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -11,19 +18,36 @@ UDisplay::UDisplay(int Width, int Height, const char* Title)
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     
     Window = SDL_CreateWindow(Title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Width, Height, SDL_WINDOW_OPENGL);
-    GLContext = SDL_GL_CreateContext(Window);
-    IsWindowClosed = false;
-    PixelWidth = 2.0f / Width;
-    PixelHeight = 2.0f / Height;
     
-    GLenum Status = glewInit();
-    if (Status == GLEW_OK)
+    GLContext = SDL_GL_CreateContext(Window);
+    
+    GLenum GL_Error;
+    while ((GL_Error = glGetError()) != GL_NO_ERROR)
     {
-        std::cout << "Window was been created with " << Width << "x" << Height << " resolution\n";
+        std::cout << glGetError() << std::endl;
+    }
+    
+    std::string SDL_Error = SDL_GetError();
+    if (SDL_Error != "")
+    {
+        std::cerr << "SDL Error: " << SDL_Error << std::endl;
+        IsWindowClosed = true;  
     }
     else
     {
-        std::cerr << "Glew failed to initialze!\n";
+        IsWindowClosed = false;
+        PixelWidth = 2.0f / Width;
+        PixelHeight = 2.0f / Height;
+    
+        GLenum Status = glewInit();
+        if (Status == GLEW_OK)
+        {
+            std::cout << "Window was been created with " << Width << "x" << Height << " resolution\n";
+        }
+        else
+        {
+            std::cerr << "Glew failed to initialze!\n";
+        }
     }
     
     return;
@@ -43,22 +67,29 @@ UDisplay::~UDisplay()
 void UDisplay::Update()
 {
     SDL_GL_SwapWindow(Window);
+    //while (SDL_PollEvent(&Event)) 
+    SDL_PollEvent(&Event);
+    //{
     
-    SDL_Event Event;
-    while (SDL_PollEvent(&Event))
+    if (Event.type == SDL_QUIT)
     {
-        if (Event.type == SDL_QUIT)
+        IsWindowClosed = true;
+    }
+    else
+    {
+        const Uint8* KeyStates = SDL_GetKeyboardState(NULL);
+        if (Event.type == SDL_KEYDOWN && Event.key.repeat == 0)
         {
-            IsWindowClosed = true;
+            this->UnhandledKeyPress = Event.key.keysym.scancode;
+            this->KeyStatus = 1;
         }
-        else
+        if (Event.type == SDL_KEYUP && !KeyStates[SDL_SCANCODE_A] && !KeyStates[SDL_SCANCODE_D])
         {
-            if (Event.type == SDL_KEYDOWN)
-            {
-                this->UnhandledKeyPress = Event.key.keysym.sym;
-            }
+            this->UnhandledKeyPress = EMPTY_KEY_SYMBOL;
+            this->KeyStatus = 0;
         }
     }
+    //}
     
     return;
 }
@@ -80,12 +111,18 @@ void UDisplay::ClearColor(float Red, float Green, float Blue, float Alpha)
 
 void UDisplay::KeyPressBeenHandled()
 {
-    UnhandledKeyPress = "";
+    UnhandledKeyPress = EMPTY_KEY_SYMBOL;
+}
+
+
+int UDisplay::IsKeyPushed()
+{
+    return KeyStatus;
 }
 
 
 float UDisplay::GetPixelWidth() const { return PixelWidth; }
 float UDisplay::GetPixelHeight() const { return PixelHeight; }
-std::string UDisplay::GetUnhandledKeyPress() const { return UnhandledKeyPress; }
+int UDisplay::GetUnhandledKeyPress() const { return UnhandledKeyPress; }
 
 

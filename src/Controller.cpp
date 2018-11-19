@@ -1,7 +1,17 @@
 #include "Controller.h"
 
 
-UController::UController(float X, float Y, float Z, float Width, float Height, const UDisplay* Display)
+UController::UController()
+{
+    this->Width = 0.0f;
+    this->Height = 0.0f;
+    this->VerticesCount = 0;
+    this->Position = glm::vec3(0.0f, 0.0f, 0.0f);
+    VertexBufferData = nullptr;
+}
+
+
+UController::UController(float X, float Y, float Z, float Width, float Height, UDisplay* Display)
 {
     ConvertCoordinates(X,  Y,  Z, Width, Height, Display);
     this->Width = Width;
@@ -11,7 +21,14 @@ UController::UController(float X, float Y, float Z, float Width, float Height, c
     SetVertices();
     this->Position = GetMiddlePoint();
     SetPosition(glm::vec3(X, Y, Z));
-    BindBuffers(VertexBufferData);
+    GenerateBuffers();
+    this->Display = Display;
+    MoveSpeed = 0.01f;
+    
+    // Also watch in UDisplay Update function if you want to change
+    // the keys values
+    MoveLeftKey = SDL_SCANCODE_A;   
+    MoveRightKey = SDL_SCANCODE_D;
     return;
 }
 
@@ -65,3 +82,26 @@ void UController::SetPosition(glm::vec3 NewPosition)
     
     return;
 }
+
+
+void UController::Update()
+{
+    int PressedKeyName = Display->GetUnhandledKeyPress();
+    if (PressedKeyName != EMPTY_KEY_SYMBOL)
+    {
+        if(PressedKeyName == MoveLeftKey)
+        {
+//             std::cout << " a\n";
+                SetPosition(glm::vec3(this->Position.x - MoveSpeed, this->Position.y, this->Position.z));
+        }
+        
+        if(PressedKeyName == MoveRightKey)
+        {
+//             std::cout << " d\n";
+            SetPosition(glm::vec3(this->Position.x + MoveSpeed, this->Position.y, this->Position.z));
+        }
+    }
+    
+    return;
+}
+
