@@ -89,15 +89,17 @@ void UController::Update()
     int PressedKeyName = Display->GetUnhandledKeyPress();
     if (PressedKeyName != EMPTY_KEY_SYMBOL)
     {
-        if(PressedKeyName == MoveLeftKey)
+        if(PressedKeyName == MoveLeftKey && 
+            ((GetMiddlePoint().x - this->Width / 2.0f - MoveSpeed) >= OPENGL_WINDOW_LEFT_X_EDGE)
+        )
         {
-//             std::cout << " a\n";
                 SetPosition(glm::vec3(this->Position.x - MoveSpeed, this->Position.y, this->Position.z));
         }
         
-        if(PressedKeyName == MoveRightKey)
+        if(PressedKeyName == MoveRightKey &&
+            ((GetMiddlePoint().x + this->Width / 2.0f + MoveSpeed) <= OPENGL_WINDOW_RIGHT_X_EDGE)
+        )
         {
-//             std::cout << " d\n";
             SetPosition(glm::vec3(this->Position.x + MoveSpeed, this->Position.y, this->Position.z));
         }
     }

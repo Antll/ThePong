@@ -6,6 +6,10 @@
 #include <string>
 #include <iostream>
 
+
+#define OPENGL_WINDOW_LEFT_X_EDGE -1.0f
+#define OPENGL_WINDOW_RIGHT_X_EDGE 1.0f
+
 class UController: public UMesh
 {
 public:
