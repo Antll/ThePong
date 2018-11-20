@@ -21,6 +21,8 @@ public:
     void Update();
     
 private:
+    float Width;
+    float Height;
     int MoveLeftKey;
     int MoveRightKey;
     float MoveSpeed;
