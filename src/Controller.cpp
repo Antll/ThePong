@@ -35,7 +35,6 @@ UController::UController(float X, float Y, float Z, float Width, float Height, U
 
 UController::~UController()
 {
-    Delete();
     return;
 }
 

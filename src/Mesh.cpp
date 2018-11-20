@@ -13,6 +13,12 @@ UVertex::UVertex(glm::vec3 Position)
 }
 
 
+UMesh::~UMesh()
+{
+    Delete();
+}
+
+
 glm::vec3 UVertex::GetPosition()
 {
     return Position;
@@ -72,6 +78,20 @@ void UMesh::ConvertCoordinates(float& X, float& Y, float& Z, float& Width, float
     
     Width *= PixelWidth;
     Height *= PixelHeight; 
+    return;
+}
+
+
+void UMesh::ConvertCoordinates(float& X, float& Y, float& Z, float& Radius, const UDisplay* Display)
+{
+    float PixelHeight = Display->GetPixelHeight();
+    float PixelWidth = Display->GetPixelWidth();
+    
+    X *= PixelWidth;
+    Y *= PixelHeight;
+    Z = 0;
+    
+    Radius *= PixelHeight;
     return;
 }
 

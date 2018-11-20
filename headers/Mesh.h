@@ -24,7 +24,9 @@ private:
 class UMesh
 {
 public:
+    virtual ~UMesh();
     void ConvertCoordinates(float& X, float& Y, float& Z, float& Width, float& Height, const UDisplay* Display);
+    void ConvertCoordinates(float& X, float& Y, float& Z, float& Radius, const UDisplay* Display);
     void GenerateBuffers();
     void Delete();
     void Draw();
@@ -34,8 +36,6 @@ public:
     
 protected:
     glm::vec3 Position;
-    float Width;
-    float Height;
     GLuint VertexArrayObject;
     GLuint VertexArrayBuffer;
     int VerticesCount;
