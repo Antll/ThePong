@@ -30,7 +30,7 @@ public:
     void GenerateBuffers();
     void Delete();
     void Draw();
-    glm::vec3 GetMiddlePoint();
+    virtual glm::vec3 GetMiddlePoint();
     void Move(glm::vec3 NewPosition);
     virtual void SetVertices() = 0;
     
