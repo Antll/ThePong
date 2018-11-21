@@ -10,6 +10,7 @@ UBall::UBall(float X, float Y, float Z, float Radius, UDisplay* Display)
     this->Radius = Radius;
     this->VerticesCount = 48;  // To draw
     this->VertexBufferData = new UVertex[VerticesCount * 2];
+    this->Display = Display;
     GenerateBuffers();
     SetVertices();
     return;
@@ -31,6 +32,7 @@ void UBall::SetVertices()
     int VerticesToCalculate = this->VerticesCount / 2;
     int TriangleCount = VerticesToCalculate / 3;
     int j = 0;
+    float Ratio = (float)Display->GetWindowHeight() / (float)Display->GetWindowWidth();
     
     for (int i = 0; i < VerticesToCalculate - TriangleCount; i++)
     {
@@ -39,8 +41,10 @@ void UBall::SetVertices()
         VertexX = Radius * cos(Angle);
         VertexY = Radius * sin(Angle);
         
+        
+        
         UVertex RightTriangleVertex = UVertex(
-            glm::vec3(VertexX + this->Position.x, VertexY + this->Position.y, 0.0f)
+            glm::vec3((VertexX + this->Position.x) * Ratio, VertexY + this->Position.y, 0.0f)
         );
         
         Angle = 2.0f * PI * float(i + 1) / float(VerticesToCalculate - TriangleCount);
@@ -48,7 +52,7 @@ void UBall::SetVertices()
         VertexY = Radius * sin(Angle);
         
         UVertex LeftTriangleVertex = UVertex(
-            glm::vec3(VertexX + this->Position.x, VertexY + this->Position.y, 0.0f)
+            glm::vec3((VertexX + this->Position.x) * Ratio, VertexY + this->Position.y, 0.0f)
         );
         
         
