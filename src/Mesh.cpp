@@ -15,6 +15,7 @@ UVertex::UVertex(glm::vec3 Position)
 
 UMesh::~UMesh()
 {
+    delete VertexBufferData;
     Delete();
 }
 
