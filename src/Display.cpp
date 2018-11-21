@@ -50,6 +50,9 @@ UDisplay::UDisplay(int Width, int Height, const char* Title)
         }
     }
     
+    this->WindowWidth = Width;
+    this->WindowHeight = Height;
+    
     return;
 }
 
@@ -124,5 +127,7 @@ int UDisplay::IsKeyPushed()
 float UDisplay::GetPixelWidth() const { return PixelWidth; }
 float UDisplay::GetPixelHeight() const { return PixelHeight; }
 int UDisplay::GetUnhandledKeyPress() const { return UnhandledKeyPress; }
+int UDisplay::GetWindowWidth() const { return WindowWidth; }
+int UDisplay::GetWindowHeight() const { return WindowHeight; }
 
 

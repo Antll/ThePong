@@ -23,11 +23,13 @@ public:
     void Update();
     bool IsClosed();
     void ClearColor(float Red, float Green, float Blue, float Alpha);
+    void KeyPressBeenHandled();
+    int IsKeyPushed();
     float GetPixelWidth() const;
     float GetPixelHeight() const;
     int GetUnhandledKeyPress() const;
-    void KeyPressBeenHandled();
-    int IsKeyPushed();
+    int GetWindowWidth() const;
+    int GetWindowHeight() const;
     
 private:
     SDL_Window *Window;
@@ -35,6 +37,8 @@ private:
     SDL_Event Event;
     Uint8 KeyStatus;
     bool IsWindowClosed;
+    int WindowHeight;
+    int WindowWidth;
     float PixelHeight;
     float PixelWidth;
     int UnhandledKeyPress;

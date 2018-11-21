@@ -25,7 +25,6 @@ private:
     int MoveLeftKey;
     int MoveRightKey;
     float MoveSpeed;
-    UDisplay* Display;
 };
 
 #endif // CONTROLLER_H

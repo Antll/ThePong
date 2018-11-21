@@ -40,6 +40,7 @@ protected:
     GLuint VertexArrayBuffer;
     int VerticesCount;
     UVertex* VertexBufferData;
+    UDisplay* Display;
 };
 
 #endif // MESH_H
