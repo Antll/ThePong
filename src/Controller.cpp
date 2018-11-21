@@ -20,7 +20,7 @@ UController::UController(float X, float Y, float Z, float Width, float Height, U
     VertexBufferData = new UVertex[VerticesCount];
     SetVertices();
     this->Position = GetMiddlePoint();
-    SetPosition(glm::vec3(X, Y, Z));
+    Move(glm::vec3(X, Y, Z));
     GenerateBuffers();
     this->Display = Display;
     MoveSpeed = 0.01f;
@@ -61,28 +61,6 @@ void UController::SetVertices()
 }
 
 
-void UController::SetPosition(glm::vec3 NewPosition)
-{
-    float DifferenceX = NewPosition.x - this->Position.x;
-    float DifferenceY = NewPosition.y - this->Position.y;
-    float DifferenceZ = NewPosition.z - this->Position.z;
-    
-    // Move until point equal to defined position
-    for (int i = 0; i < VerticesCount; i++)
-    {
-        glm::vec3 MoveVector = glm::vec3(
-                                    VertexBufferData[i].GetPosition().x + DifferenceX,
-                                    VertexBufferData[i].GetPosition().y + DifferenceY,
-                                    VertexBufferData[i].GetPosition().z + DifferenceZ 
-                                    );
-        
-        VertexBufferData[i] = MoveVector;
-    }
-    
-    return;
-}
-
-
 void UController::Update()
 {
     int PressedKeyName = Display->GetUnhandledKeyPress();
@@ -92,14 +70,14 @@ void UController::Update()
             ((GetMiddlePoint().x - this->Width / 2.0f - MoveSpeed) >= OPENGL_WINDOW_LEFT_X_EDGE)
         )
         {
-                SetPosition(glm::vec3(this->Position.x - MoveSpeed, this->Position.y, this->Position.z));
+                Move(glm::vec3(this->Position.x - MoveSpeed, this->Position.y, this->Position.z));
         }
         
         if(PressedKeyName == MoveRightKey &&
             ((GetMiddlePoint().x + this->Width / 2.0f + MoveSpeed) <= OPENGL_WINDOW_RIGHT_X_EDGE)
         )
         {
-            SetPosition(glm::vec3(this->Position.x + MoveSpeed, this->Position.y, this->Position.z));
+            Move(glm::vec3(this->Position.x + MoveSpeed, this->Position.y, this->Position.z));
         }
     }
     

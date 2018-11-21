@@ -112,3 +112,25 @@ glm::vec3 UMesh::GetMiddlePoint()
     
     return glm::vec3(SumX / VerticesCount, SumY / VerticesCount, SumZ / VerticesCount);
 }
+
+
+void UMesh::Move(glm::vec3 NewPosition)
+{
+    float DifferenceX = NewPosition.x - Position.x;
+    float DifferenceY = NewPosition.y - Position.y;
+    float DifferenceZ = NewPosition.z - Position.z;
+    
+    // Move until point equal to defined position
+    for (int i = 0; i < VerticesCount; i++)
+    {
+        glm::vec3 MoveVector = glm::vec3(
+                                    VertexBufferData[i].GetPosition().x + DifferenceX,
+                                    VertexBufferData[i].GetPosition().y + DifferenceY,
+                                    VertexBufferData[i].GetPosition().z + DifferenceZ 
+                                    );
+        
+        VertexBufferData[i] = MoveVector;
+    }
+    
+    return;
+}

@@ -31,8 +31,8 @@ public:
     void Delete();
     void Draw();
     glm::vec3 GetMiddlePoint();
+    void Move(glm::vec3 NewPosition);
     virtual void SetVertices() = 0;
-    virtual void SetPosition(glm::vec3 Position) = 0;
     
 protected:
     glm::vec3 Position;

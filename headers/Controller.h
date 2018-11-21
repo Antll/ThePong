@@ -17,7 +17,6 @@ public:
     UController(float X, float Y, float Z, float Width, float Height, UDisplay* Display);
     ~UController();
     void SetVertices();
-    void SetPosition(glm::vec3 Position);
     void Update();
     
 private:

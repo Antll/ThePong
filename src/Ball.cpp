@@ -66,9 +66,3 @@ void UBall::SetVertices()
     
     return;
 }
-
-
-void UBall::SetPosition(glm::vec3 Position)
-{
-    return;
-}
