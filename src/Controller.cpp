@@ -70,7 +70,7 @@ void UController::Update()
             ((GetMiddlePoint().x - this->Width / 2.0f - MoveSpeed) >= OPENGL_WINDOW_LEFT_X_EDGE)
         )
         {
-                Move(glm::vec3(this->Position.x - MoveSpeed, this->Position.y, this->Position.z));
+            Move(glm::vec3(this->Position.x - MoveSpeed, this->Position.y, this->Position.z));
         }
         
         if(PressedKeyName == MoveRightKey &&
