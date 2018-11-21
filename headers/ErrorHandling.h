@@ -15,6 +15,8 @@
 #define GL_CHECK(x) GLClearError(); \
     x;\
     ASSERT(GLLogCall(#x, __FILE__, __LINE__))
+    
+#define LOG(x) std::cout << x << std::endl;
 
 void GLClearError();
 bool GLLogCall(const char* FunctionName, const char* SourceFileName, int Line);
