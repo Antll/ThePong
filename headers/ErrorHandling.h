@@ -16,7 +16,7 @@
     x;\
     ASSERT(GLLogCall(#x, __FILE__, __LINE__))
     
-#define LOG(x) std::cout << x << std::endl;
+#define LOG(Message, Value) std::cout << "[" << __TIME__ << "]" << "[" << #Message << "]: " << Value << std::endl;
 
 void GLClearError();
 bool GLLogCall(const char* FunctionName, const char* SourceFileName, int Line);
