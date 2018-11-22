@@ -12,7 +12,7 @@ UBall::UBall(float X, float Y, float Z, float Radius, UDisplay* Display)
     this->VertexBufferData = new UVertex[VerticesCount * 2];
     this->Display = Display;
     this->Speed = 0.005f;   // Default speed
-    this->Direction = glm::vec3(this->Position.x + Speed, this->Position.y + Speed, 0.0f);
+    this->Direction = glm::vec3(this->Position.x + Speed, this->Position.y - Speed, 0.0f);
     GenerateBuffers();
     SetVertices();
     return;
@@ -73,22 +73,7 @@ void UBall::SetVertices()
     return;
 }
 
-glm::vec3 UBall::GetMiddlePoint()
-{
-    // Find the the middle point
-    float SumX = 0.0f;
-    float SumY = 0.0f;
-    float SumZ = 0.0f;
-    for (int i = 0; i < VerticesCount; ((i + 2) % 3 == 0) ? i+=2 : i++)
-    {
-        SumX += VertexBufferData[i].GetPosition().x;
-        SumY += VertexBufferData[i].GetPosition().y;
-        SumZ += VertexBufferData[i].GetPosition().z;
-    }
-    
-    return glm::vec3(SumX / VerticesCount, SumY / VerticesCount, SumZ / VerticesCount);
-}
-
 
 float UBall::GetSpeed() const { return Speed; }
 glm::vec3 UBall::GetDirection() const { return Direction; }
+float UBall::GetRadius() const { return Radius; }

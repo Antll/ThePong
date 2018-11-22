@@ -19,6 +19,9 @@ public:
     void SetVertices();
     void Update();
     
+    float GetWidth() const;
+    float GetHeight() const;
+    
 private:
     float Width;
     float Height;

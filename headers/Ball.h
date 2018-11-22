@@ -9,9 +9,9 @@ public:
     UBall(float X, float Y, float Z, float Radius, UDisplay* Display);
     ~UBall();
     void SetVertices();
-    glm::vec3 GetMiddlePoint();
     float GetSpeed() const;
     glm::vec3 GetDirection() const;
+    float GetRadius() const;
     
 private:
     float Radius;

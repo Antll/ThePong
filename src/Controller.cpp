@@ -84,3 +84,8 @@ void UController::Update()
     return;
 }
 
+
+float UController::GetHeight() const { return Height; }
+float UController::GetWidth() const { return Width; }
+
+
