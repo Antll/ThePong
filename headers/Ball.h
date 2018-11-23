@@ -17,8 +17,6 @@ public:
     float GetDirectionAngleDeg() const;
     float GetRadius() const;
     int GetLastCollision() const;
-    int GetMovingSide() const;
-    void SetMovingSide(int Direction);
     void SetLastCollision(const int ObjectValue);
     
 private:
@@ -26,14 +24,8 @@ private:
     float Speed;
     glm::vec3 Direction;
     float DirectionAngle;
-    int MoveTo;
     int LastCollision;
     static constexpr float PI = 3.1415926f;
-    
-    enum DIRECTION {
-        LEFT,
-        RIGHT
-    };
 };
 
 #endif // BALL_H

@@ -15,8 +15,7 @@ UBall::UBall(float X, float Y, float Z, float Radius, UDisplay* Display)
     this->Direction = glm::vec3(this->Position.x + Speed, this->Position.y - Speed, 0.0f);
     this->LastCollision = -1;
     
-    this->DirectionAngle = /*acos(0 / Speed * Speed)*/ -90.0f * PI / 180.0f;
-    this->MoveTo = RIGHT;
+    this->DirectionAngle = -90.0f * PI / 180.0f;
     
     GenerateBuffers();
     SetVertices();
@@ -104,10 +103,8 @@ glm::vec3 UBall::GetDirection() const { return Direction; }
 float UBall::GetRadius() const { return Radius; }
 int UBall::GetLastCollision() const { return LastCollision; }
 float UBall::GetDirectionAngleDeg() const { return DirectionAngle * 180.0f / PI;}
-int UBall::GetMovingSide() const { return MoveTo; }
 
 
 void UBall::SetLastCollision(const int ObjectValue) { this->LastCollision = ObjectValue; }
-void UBall::SetMovingSide(int Direction) { this->MoveTo = Direction; }
 
 

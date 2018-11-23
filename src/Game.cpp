@@ -28,8 +28,6 @@ void UGame::Update()
         && Ball->GetLastCollision() != TWIN_PLAYER
     )
     {
-        LOG(UGame::Update::TwinPlayer,"Collision detected");
-        LOG(UGame::Update::BallAngle , Ball->GetDirectionAngleDeg());
         Ball->RotateDirection(Angle);
         Ball->SetLastCollision(TWIN_PLAYER);
     }
@@ -38,9 +36,6 @@ void UGame::Update()
         && Ball->GetLastCollision() != PLAYER
     )
     {
-        LOG(UGame::Update::Player,"Collision detected");
-        LOG(UGame::Update::BallAngle , Ball->GetDirectionAngleDeg());
-        
         Ball->RotateDirection(Angle);
         Ball->SetLastCollision(PLAYER);
     }
@@ -49,8 +44,6 @@ void UGame::Update()
         && Ball->GetLastCollision() != WALL
     )
     {
-        LOG(UGame::Update::Border,"Collision detected");
-        LOG(UGame::Update::BallAngle , Ball->GetDirectionAngleDeg());
         Ball->RotateDirection(90);
         Ball->SetLastCollision(WALL);
     }
