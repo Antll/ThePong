@@ -13,6 +13,11 @@ UBall::UBall(float X, float Y, float Z, float Radius, UDisplay* Display)
     this->Display = Display;
     this->Speed = 0.005f;   // Default speed
     this->Direction = glm::vec3(this->Position.x + Speed, this->Position.y - Speed, 0.0f);
+    this->LastCollision = -1;
+    
+    this->DirectionAngle = /*acos(0 / Speed * Speed)*/ -90.0f * PI / 180.0f;
+    this->MoveTo = RIGHT;
+    
     GenerateBuffers();
     SetVertices();
     return;
@@ -74,6 +79,35 @@ void UBall::SetVertices()
 }
 
 
+void UBall::RotateDirection(float Angle)
+{
+    Angle = (Angle * PI) / 180; // Convert to radians
+    Angle += this->DirectionAngle;
+
+    if (Angle >= 2.0f * PI)
+    {
+        Angle -= 2.0f * PI;
+    }
+    
+    float NewDirectionX = cos(Angle) * Speed - sin(Angle) * Speed;
+    float NewDirectionY = sin(Angle) * Speed + cos(Angle) * Speed;
+    
+    this->Direction = glm::vec3(this->Position.x + NewDirectionX, this->Position.y + NewDirectionY, 0.0f);
+    this->DirectionAngle = Angle;
+    
+    return;
+}
+
+
 float UBall::GetSpeed() const { return Speed; }
 glm::vec3 UBall::GetDirection() const { return Direction; }
 float UBall::GetRadius() const { return Radius; }
+int UBall::GetLastCollision() const { return LastCollision; }
+float UBall::GetDirectionAngleDeg() const { return DirectionAngle * 180.0f / PI;}
+int UBall::GetMovingSide() const { return MoveTo; }
+
+
+void UBall::SetLastCollision(const int ObjectValue) { this->LastCollision = ObjectValue; }
+void UBall::SetMovingSide(int Direction) { this->MoveTo = Direction; }
+
+

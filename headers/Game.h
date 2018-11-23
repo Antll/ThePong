@@ -17,8 +17,19 @@ private:
     UController* Player;
     UController* TwinPlayer;
     UBall* Ball;
+    enum OBJECTS {
+        PLAYER,
+        TWIN_PLAYER,
+        WALL
+    };
+    
+    enum DIRECTION {
+        LEFT,
+        RIGHT
+    };
     
     bool IsBallOverlapedWithController(UBall* Ball, UController* Controller);
+    bool IsBallGetOverTheScreen(UBall* Ball);
 };
 
 #endif // GAME_H

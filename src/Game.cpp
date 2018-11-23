@@ -21,10 +21,38 @@ UGame::~UGame()
 void UGame::Update()
 {
     Ball->Move(Ball->GetDirection());
-    
-    if (IsBallOverlapedWithController(Ball, Player) || IsBallOverlapedWithController(Ball, TwinPlayer))
+ 
+    srand(time(NULL));
+    float Angle = 90.0f + (-10.f + rand() % 21);
+    if (IsBallOverlapedWithController(Ball, TwinPlayer)
+        && Ball->GetLastCollision() != TWIN_PLAYER
+    )
     {
-        LOG(UGame::Udate,"Collision detected");
+        LOG(UGame::Update::TwinPlayer,"Collision detected");
+        LOG(UGame::Update::BallAngle , Ball->GetDirectionAngleDeg());
+        Ball->RotateDirection(Angle);
+        Ball->SetLastCollision(TWIN_PLAYER);
+    }
+    
+    if (IsBallOverlapedWithController(Ball, Player)
+        && Ball->GetLastCollision() != PLAYER
+    )
+    {
+        LOG(UGame::Update::Player,"Collision detected");
+        LOG(UGame::Update::BallAngle , Ball->GetDirectionAngleDeg());
+        
+        Ball->RotateDirection(Angle);
+        Ball->SetLastCollision(PLAYER);
+    }
+    
+    if (IsBallGetOverTheScreen(Ball)
+        && Ball->GetLastCollision() != WALL
+    )
+    {
+        LOG(UGame::Update::Border,"Collision detected");
+        LOG(UGame::Update::BallAngle , Ball->GetDirectionAngleDeg());
+        Ball->RotateDirection(90);
+        Ball->SetLastCollision(WALL);
     }
     
     Player->Update();
@@ -57,4 +85,19 @@ bool UGame::IsBallOverlapedWithController(UBall* Ball, UController* Controller)
     }
     
     return IsOverlaping;
+}
+
+
+bool UGame::IsBallGetOverTheScreen(UBall* Ball)
+{
+    bool IsOver = false;
+    
+    if ((Ball->GetMiddlePoint().x - Ball->GetRadius() < -1.0f)
+        || (Ball->GetMiddlePoint().x + Ball->GetRadius() > 1.0f)
+    )
+    {
+        IsOver = true;
+    }
+    
+    return IsOver;
 }
