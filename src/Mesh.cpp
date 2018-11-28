@@ -39,13 +39,22 @@ void UMesh::Draw()
     glBindBuffer(GL_ARRAY_BUFFER, VertexArrayBuffer);
     
     glBufferData(GL_ARRAY_BUFFER, VerticesCount * sizeof(VertexBufferData[0]), VertexBufferData, GL_STREAM_DRAW);
+    
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     
     glEnableVertexAttribArray(0);
     
-    glDrawArrays(GL_TRIANGLES, 0, VerticesCount);
+    if (VerticesCount > 2)
+    {
+        glDrawArrays(GL_TRIANGLES, 0, VerticesCount);
+    }
+    else if (VerticesCount == 2)
+    {
+        glDrawArrays(GL_LINES, 0, VerticesCount);
+    }
     
     glDisableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     return;
 }
