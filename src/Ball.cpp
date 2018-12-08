@@ -15,7 +15,7 @@ UBall::UBall(float X, float Y, float Z, float Radius, UDisplay* Display)
     this->Direction = glm::vec3(this->Position.x + Speed, this->Position.y - Speed, 0.0f);
     this->LastCollision = -1;
     
-    this->DirectionAngle = -90.0f * PI / 180.0f;
+    this->DirectionAngle = atan(this->Direction.y / this->Direction.x);
     
     GenerateBuffers();
     SetVertices();
@@ -81,18 +81,17 @@ void UBall::SetVertices()
 void UBall::RotateDirection(float Angle)
 {
     Angle = (Angle * PI) / 180; // Convert to radians
-    Angle += this->DirectionAngle;
-
-    if (Angle >= 2.0f * PI)
+    
+    float NewDirectionX = cos(Angle) * this->Direction.x - sin(Angle) * this->Direction.y;
+    float NewDirectionY = sin(Angle) * this->Direction.x + cos(Angle) * this->Direction.y;
+    
+    this->Direction = glm::vec3(NewDirectionX, NewDirectionY, 0.0f);
+    this->DirectionAngle += Angle;
+    
+    while (this->DirectionAngle >= 2.0f * PI)
     {
-        Angle -= 2.0f * PI;
+        this->DirectionAngle -= 2.0f * PI;
     }
-    
-    float NewDirectionX = cos(Angle) * Speed - sin(Angle) * Speed;
-    float NewDirectionY = sin(Angle) * Speed + cos(Angle) * Speed;
-    
-    this->Direction = glm::vec3(this->Position.x + NewDirectionX, this->Position.y + NewDirectionY, 0.0f);
-    this->DirectionAngle = Angle;
     
     return;
 }

@@ -21,9 +21,8 @@ UGame::~UGame()
 void UGame::Update()
 {
     Ball->Move(Ball->GetDirection());
- 
-    srand(time(NULL));
-    float Angle = 90.0f + (-10.f + rand() % 21);
+    float Angle = 90.0f;
+    
     if (IsBallOverlapedWithController(Ball, TwinPlayer)
         && Ball->GetLastCollision() != TWIN_PLAYER
     )
@@ -40,12 +39,20 @@ void UGame::Update()
         Ball->SetLastCollision(PLAYER);
     }
     
-    if (IsBallGetOverTheScreen(Ball)
-        && Ball->GetLastCollision() != WALL
+    if ((BallCrossTheBorder(Ball) == WALL_RIGHT)
+        && Ball->GetLastCollision() != WALL_RIGHT
     )
     {
-        Ball->RotateDirection(90);
-        Ball->SetLastCollision(WALL);
+        Ball->RotateDirection(Angle);
+        Ball->SetLastCollision(WALL_RIGHT);
+    }
+    
+    if ((BallCrossTheBorder(Ball) == WALL_LEFT)
+        && Ball->GetLastCollision() != WALL_LEFT
+    )
+    {
+        Ball->RotateDirection(Angle);
+        Ball->SetLastCollision(WALL_LEFT);
     }
     
     Player->Update();
@@ -81,16 +88,19 @@ bool UGame::IsBallOverlapedWithController(UBall* Ball, UController* Controller)
 }
 
 
-bool UGame::IsBallGetOverTheScreen(UBall* Ball)
+int UGame::BallCrossTheBorder(UBall* Ball)
 {
-    bool IsOver = false;
+    int CrossedWall = 0;
     
-    if ((Ball->GetMiddlePoint().x - Ball->GetRadius() < -1.0f)
-        || (Ball->GetMiddlePoint().x + Ball->GetRadius() > 1.0f)
-    )
+    if (Ball->GetMiddlePoint().x - Ball->GetRadius() < -1.0f)
     {
-        IsOver = true;
+        CrossedWall = WALL_LEFT;
     }
     
-    return IsOver;
+    if (Ball->GetMiddlePoint().x + Ball->GetRadius() > 1.0f)
+    {
+        CrossedWall = WALL_RIGHT;
+    }
+    
+    return CrossedWall;
 }

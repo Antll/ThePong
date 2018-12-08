@@ -5,6 +5,8 @@
 #include "Display.h"
 #include "Ball.h"
 #include <math.h>
+#include "DebugLine.h"
+#include "ErrorHandling.h"
 
 class UGame
 {
@@ -17,19 +19,23 @@ private:
     UController* Player;
     UController* TwinPlayer;
     UBall* Ball;
-    enum OBJECTS {
+    enum OBJECTS 
+    {
         PLAYER,
         TWIN_PLAYER,
-        WALL
+        WALL,
+        WALL_LEFT,
+        WALL_RIGHT
     };
     
-    enum DIRECTION {
+    enum DIRECTION 
+    {
         LEFT,
         RIGHT
     };
     
     bool IsBallOverlapedWithController(UBall* Ball, UController* Controller);
-    bool IsBallGetOverTheScreen(UBall* Ball);
+    int BallCrossTheBorder(UBall* Ball);
 };
 
 #endif // GAME_H
