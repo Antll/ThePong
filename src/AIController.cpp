@@ -29,3 +29,9 @@ void UAIController::Update()
 {
     return;
 }
+
+
+void UAIController::SetBallPosition(const UBall& Ball)
+{
+    this->BallPosition = Ball.GetMiddlePoint();
+}

@@ -106,7 +106,7 @@ void UMesh::ConvertCoordinates(float& X, float& Y, float& Z, float& Radius, cons
 }
 
 
-glm::vec3 UMesh::GetMiddlePoint()
+glm::vec3 UMesh::GetMiddlePoint() const
 {
     // Find the the middle point
     float SumX = 0.0f;
