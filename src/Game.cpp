@@ -3,7 +3,7 @@
 UGame::UGame(UDisplay* Display)
 {
     Player = new UController(0.0f, -280.0f, 0.0f, 100.0f, 20.0f, Display);
-    TwinPlayer = new UController(0.0f, 280.0f, 0.0f, 100.0f, 20.0f, Display);
+    TwinPlayer = new UAIController(0.0f, 280.0f, 0.0f, 100.0f, 20.0f, Display);
     Ball = new UBall(0.0f, 0.0f, 0.0f, 10.0f, Display); // 10 - default radious
     return;
 }
@@ -23,7 +23,7 @@ void UGame::Update()
     Ball->Move(Ball->GetDirection());
     float Angle = 90.0f;
     
-    if (IsBallOverlapedWithController(Ball, TwinPlayer)
+    if (IsBallOverlapedWithController(Ball, static_cast<UController*>(TwinPlayer))
         && Ball->GetLastCollision() != TWIN_PLAYER
     )
     {
@@ -104,3 +104,4 @@ int UGame::BallCrossTheBorder(UBall* Ball)
     
     return CrossedWall;
 }
+

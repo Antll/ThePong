@@ -17,12 +17,12 @@ public:
     UController(float X, float Y, float Z, float Width, float Height, UDisplay* Display);
     ~UController();
     void SetVertices();
-    void Update();
+    virtual void Update();
     
     float GetWidth() const;
     float GetHeight() const;
     
-private:
+protected:
     float Width;
     float Height;
     int MoveLeftKey;

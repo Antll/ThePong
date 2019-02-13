@@ -7,6 +7,7 @@
 #include <math.h>
 #include "DebugLine.h"
 #include "ErrorHandling.h"
+#include "AIController.h"
 
 class UGame
 {
@@ -17,7 +18,7 @@ public:
     
 private:
     UController* Player;
-    UController* TwinPlayer;
+    UAIController* TwinPlayer;
     UBall* Ball;
     enum OBJECTS 
     {
