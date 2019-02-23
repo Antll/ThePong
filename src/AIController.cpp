@@ -27,11 +27,23 @@ UAIController::~UAIController()
 
 void UAIController::Update()
 {
+    if ((this->BallPosition.x - this->GetMiddlePoint().x > 0) 
+        && (this->GetMiddlePoint().x + this->Width / 2.0 < OPENGL_WINDOW_RIGHT_X_EDGE))
+    {
+        Move(glm::vec3(this->Position.x + MoveSpeed, this->Position.y, this->Position.z));
+    }
+    
+    if ((this->BallPosition.x - this->GetMiddlePoint().x < 0)
+        && (this->GetMiddlePoint().x - this->Width / 2.0 > OPENGL_WINDOW_LEFT_X_EDGE))
+    {
+        Move(glm::vec3(this->Position.x - MoveSpeed, this->Position.y, this->Position.z));
+    }
+    
     return;
 }
 
 
-void UAIController::SetBallPosition(const UBall& Ball)
+void UAIController::PutBallPosition(const UBall* Ball)
 {
-    this->BallPosition = Ball.GetMiddlePoint();
+    this->BallPosition = Ball->GetMiddlePoint();
 }

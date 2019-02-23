@@ -57,6 +57,7 @@ void UGame::Update()
     
     Player->Update();
     TwinPlayer->Update();
+    TwinPlayer->PutBallPosition(Ball);
     Player->Draw();
     TwinPlayer->Draw();
     Ball->Draw();

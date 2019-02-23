@@ -10,7 +10,7 @@ public:
     UAIController(float X, float Y, float Z, float Width, float Height, UDisplay* Display);
     ~UAIController();
     void Update();
-    void SetBallPosition(const UBall& Ball);
+    void PutBallPosition(const UBall* Ball);
     
 private:
     glm::vec3 BallPosition;
